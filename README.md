@@ -2,6 +2,7 @@
 
 This repository contains a sample application and scripts to demonstrate how to modernize your applications *after you have migrated your database to Azure*, using Azure SQL and AI, without the need to change your application code and taking advantage of [Data API builder](https://aka.ms/dab) to create a modern data access layer.
 
+- [Migrate to Azure](#migrate-to-azure)
 - [Modernize your applications with Azure SQL and AI](#modernize-your-applications-with-azure-sql-and-ai)
 - [Bring AI to your data](#bring-ai-to-your-data)
 
