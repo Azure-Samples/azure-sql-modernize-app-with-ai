@@ -5,11 +5,18 @@ This repository contains a sample application and scripts to demonstrate how to 
 - [Modernize your applications with Azure SQL and AI](#modernize-your-applications-with-azure-sql-and-ai)
 - [Bring AI to your data](#bring-ai-to-your-data)
 
+![Migrate and Modernize with Azure SQL](./_assets/modernize.png)
+
 ## Modernize your applications with Azure SQL and AI
 
 A sample Windows application is provided in the DemoApp folder. Create a `.env` file from the provided sample, setting the connection string to you Azure SQL database.
 
 You can run the application and search for products using the search box. You'll see that just by updating the stored procedure, as explained in the next steps, you can improve the search experience without having to change the application code.
+
+```
+cd DemoApp
+dotnet run
+```
 
 ## Bring AI to your data
 
