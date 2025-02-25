@@ -1,0 +1,124 @@
+<!doctype html>
+
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Modernize with Azure SQL, AI and Data API builder</title>
+    <meta name="description" content="Modernize with Azure SQL, AI and Data API builder">
+    <meta name="author" content="Davide">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    <style>
+        @keyframes spinner {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .spinner::before {
+            content: "";
+            box-sizing: border-box;
+            position: absolute;
+            top: 50%;
+            right: 110px;
+            width: 24px;
+            height: 24px;
+            margin-top: -12px;
+            margin-left: -12px;            
+            border-radius: 50%;
+            border-top: 2px solid #07d;
+            border-right: 2px solid transparent;
+            animation: spinner 600ms linear infinite;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1 class="display-3">Product Search</h1>
+        <div class="input-group mb-3">
+            <input id="filter" type="text" class="form-control" placeholder="Product description" aria-label="Product description" aria-describedby="searchButton">
+                <span id="spinner" class="spinner"/>    
+            </input>
+            <div class="input-group-append">
+                <button id="searchButton" class="btn btn-outline-secondary" type="button" onclick="search()">Search</button>
+            </div>
+        </div>
+        <div id="products">
+            <ul class="list-group">
+            </ul>
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js" crossorigin="anonymous"></script>
+    <script>
+        async function loadProducts(searchTerm) {
+            if (searchTerm == "")
+                return [];
+
+            var ul = $("#products ul");
+            ul.empty();
+
+            var sb = $("#searchButton");
+            sb.prop("disabled", true);
+            sb.text("Searching...");
+
+            var s = $("#spinner");
+            s.addClass("spinner");
+
+            var graphql = `
+                query {
+                    executeSearchProducts(searchTerm: "${searchTerm}") {                        
+                        id                        
+                        product_name
+                        short_description     
+                        thoughts                 
+                    }  
+                }
+            `;
+            var url = "http://localhost:5000/graphql";
+            var response = await fetch(
+                url, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ "query": graphql })
+            })
+            var payload = await response.json();
+
+            s.removeClass("spinner"); 
+            sb.prop("disabled", false);
+            sb.text("Search");
+
+            return payload.data.executeSearchProducts
+        }
+
+        function loadProductsList(filter) {
+            loadProducts(filter).then(result => {
+                var ul = $("#products ul");
+                ul.empty();
+                result.forEach(item => {
+                    var li = $(`<li class='list-group-item'><a href="http://localhost:5000/api/products/id/${item.id}">${item.id}</a> - <strong>${item.product_name}</strong>      
+                    <br/>
+                    ${item.short_description}      
+                    <br/>
+                    ${item.thoughts}              
+                    </li>`);
+                    ul.append(li);
+                });
+            });
+
+        }
+
+        function search() {
+            loadProductsList($("#filter").val());
+        }
+
+    </script>
+</body>
+
+</html>
