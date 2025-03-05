@@ -9,7 +9,7 @@ dab init --database-type mssql --host-mode development --connection-string "@env
 then add the stored procedure to the DAB configuration.
 
 ```bash
-dab add SearchProducts --source "dbo.search_product" --source.type "stored-procedure" --source.params "searchTerm:" --rest "searchProducts" --rest.methods "post,get" --permissions "anonymous:*" 
+dab add SearchProducts --source "dbo.search_products" --source.type "stored-procedure" --source.params "searchTerm:" --rest "searchProducts" --rest.methods "post,get" --graphql.operation "query" --permissions "anonymous:*"  
 ```
 
 start DAB
