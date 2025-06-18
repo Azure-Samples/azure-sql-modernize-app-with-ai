@@ -1,3 +1,6 @@
+use MigrateAndModernize
+go
+
 /* insert new products */
 
 delete from [dbo].[ecommerce_product_details] where id >= 90000;

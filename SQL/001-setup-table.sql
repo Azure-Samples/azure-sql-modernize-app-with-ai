@@ -68,4 +68,4 @@ go
 /*
     Look at the first row to verify the conversion.
 */
-select top (1) * from dbo.[ecommerce_product_details]
+select top (10) * from dbo.[ecommerce_product_details]
