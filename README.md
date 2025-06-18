@@ -1,5 +1,8 @@
 # Migrate and Modernize with Azure SQL
 
+> [!NOTE]
+> If you want to explore the new SQL Server 2025, you can use the [`sql-server-2025`](https://github.com/Azure-Samples/azure-sql-modernize-app-with-ai/tree/sql-server-2025) branch of this repository.
+
 This repository contains a sample application and scripts to demonstrate how to modernize your applications *after you have migrated your database to Azure*, using Azure SQL and AI, without the need to change your application code and taking advantage of [Data API builder](https://aka.ms/dab) to create a modern data access layer.
 
 - [Migrate to Azure](#migrate-to-azure)
