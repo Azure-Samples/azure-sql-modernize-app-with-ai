@@ -9,6 +9,8 @@ This repository contains a sample application and scripts to demonstrate how to 
 - [Modernize your applications with Azure SQL and AI](#modernize-your-applications-with-azure-sql-and-ai)
 - [Bring AI to your data](#bring-ai-to-your-data)
 
+You can also see a recoding of this sample here: [Migrate and modernize Windows Server, SQL Server, and .NET workloads](https://www.youtube.com/watch?v=H_2OgOL3fpo&t=982s)
+
 ![Migrate and Modernize with Azure SQL](./_assets/modernize.png)
 
 ## Migrate to Azure
