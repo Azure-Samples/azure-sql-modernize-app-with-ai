@@ -1,0 +1,6 @@
+POST http://localhost:5000/api/searchProducts
+
+{
+  "category": "",
+  "searchTerm": "find the best video game to gift to a teenager boy"
+}
