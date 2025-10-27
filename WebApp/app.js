@@ -129,6 +129,7 @@ function showResults(products) {
     });
     
     resultsSection.addClass('fade-in').show();
+    searchBtn.prop('disabled', false).html('<i class="ms-Icon ms-Icon--Search mr-2"></i>Search Products');
 }
 
 /**
@@ -191,23 +192,6 @@ function createProductCard(product, index) {
             ` : ''}
             
             ${thoughtsSection}
-            
-            <div class="flex justify-between items-center mt-4 pt-4 border-t border-gray-100">
-                <div class="flex space-x-2">
-                    <button class="px-3 py-2 text-sm border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors">
-                        <i class="ms-Icon ms-Icon--Heart mr-1"></i>
-                        Save
-                    </button>
-                    <button class="px-3 py-2 text-sm border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors">
-                        <i class="ms-Icon ms-Icon--Share mr-1"></i>
-                        Share
-                    </button>
-                </div>
-                <button class="btn-primary px-4 py-2 text-sm rounded-lg">
-                    <i class="ms-Icon ms-Icon--ShoppingCart mr-1"></i>
-                    View Details
-                </button>
-            </div>
         </div>
     `;
 }

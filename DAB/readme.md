@@ -24,8 +24,8 @@ and then query the endpoint
 http://localhost:5000/api/searchProducts?searchTerm=f1
 ```
 
-or 
+or, using GraphQL:
 
-```
+```text
 http://localhost:5000/graphql/
 ```
