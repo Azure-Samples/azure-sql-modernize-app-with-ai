@@ -69,7 +69,7 @@ select @results = ((
 ));
 
 declare @answer nvarchar(max), @error json;
-exec generate_answer @searchTerm, @results, @answer output, @error output with result sets none; 
+exec dbo.generate_answer @searchTerm, @results, @answer output, @error output with result sets none; 
 if @retval <> 0
 begin;
     print cast(@error as nvarchar(max));

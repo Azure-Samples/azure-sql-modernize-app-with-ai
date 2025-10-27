@@ -1,0 +1,1 @@
+EXEC dbo.search_products 'find the best gift for a teenager boy passionate about car racing videogames. He owns an XBOX One'
