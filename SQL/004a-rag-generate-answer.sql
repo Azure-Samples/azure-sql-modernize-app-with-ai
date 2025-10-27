@@ -1,10 +1,12 @@
 /*
     Call LLM for analyzing and enriching semantic search results
     with Generative AI while returning data in structured format
+    This procedure is called from the RAG version (script 004b) 
+    of the dbo.search_products procedure.
 */ 
 create or alter procedure [dbo].[generate_answer] 
 @request nvarchar(max),
-@products nvarchar(max),
+@products nvarchar(max), 
 @response nvarchar(max) output,
 @error json output
 as
@@ -17,7 +19,7 @@ json_object(
         json_object(
             'role':'system',
             'content':'
-                You as a system assistant who helps users find the best products available in the catalog to satesfy the requested ask.
+                You as a system assistant who helps users find the best products available in the catalog to satisfy the requested ask.
                 Products are provided in an assitant message using a JSON Array with the following format: [{id, name, description}].                 
                 Use only the provided products to help you answer the question.        
                 Use only the information available in the provided JSON to answer the question.
