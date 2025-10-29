@@ -73,7 +73,7 @@ namespace DemoApp
                 dataGridView1.Columns.Clear();
 
                 button1.Text = "Connecting...";
-                using SqlConnection connection = new(_connectionString);
+                using SqlConnection connection = new(_connectionString);                
                 connection.Open();
 
                 button1.Text = "Searching...";

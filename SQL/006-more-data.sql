@@ -21,8 +21,8 @@ values
 )
 go
 
-select * from [dbo].[ecommerce_product_details] where id >= 90000
-go
+-- select * from [dbo].[ecommerce_product_details] where id >= 90000
+-- go
 
 -- Quick and dirty loop to update embeddings;
 declare @retval int;
