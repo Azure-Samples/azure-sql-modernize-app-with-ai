@@ -17,7 +17,14 @@
       "enabled": true,
       "path": "/graphql",
       "allow-introspection": true
-    },    
+    },  
+    "mcp": {
+      "enabled": true,
+      "dml-tools": { 
+        "describe-entities": true,
+        "execute-entity": true
+      }
+    },  
     "host": {
       "cors": {
         "origins": [ "*" ],
