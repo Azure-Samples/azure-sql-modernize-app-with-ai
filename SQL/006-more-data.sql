@@ -21,7 +21,7 @@ values
 )
 go
 
-select * from [dbo].[ecommerce_product_details] 
+select id from [dbo].[ecommerce_product_details] 
 where id >= 90000 and embedding is null
 go
 
@@ -36,7 +36,7 @@ and
     embedding is null
 
 -- Check 
-select * from [dbo].[ecommerce_product_details] 
+select id from [dbo].[ecommerce_product_details] 
 where id >= 90000 and embedding is null
 go
 
