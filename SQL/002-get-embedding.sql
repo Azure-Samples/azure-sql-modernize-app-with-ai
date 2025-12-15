@@ -15,36 +15,29 @@ end
 go
 
 /*
-    Procedure to call OpenAI and get embeddings from a given text
+    Make sure to use the latest compatibility level
 */
-create or alter procedure [dbo].[get_embedding]
-@inputText nvarchar(max),
-@embedding vector(1536) output,
-@error json output
-as
-declare @retval int;
-declare @payload nvarchar(max) = json_object('input': @inputText);
-declare @response nvarchar(max)
-begin try
-    exec @retval = sp_invoke_external_rest_endpoint
-        @url = '<OPENAI_URL>/openai/deployments/<OPENAI_EMBEDDING_MODEL_DEPLOYMENT>/embeddings?api-version=2023-03-15-preview',
-        @method = 'POST',
-        @credential = [<OPENAI_URL>],
-        @payload = @payload,
-        @response = @response output;
-end try
-begin catch
-    set @error = json_object('error':'Embedding:REST', 'error_code':ERROR_NUMBER(), 'error_message':ERROR_MESSAGE())
-    return -1
-end catch
+alter database current set compatibility_level = 170
+go
 
-if @retval != 0 begin
-    set @error = json_object('error':'Embedding:OpenAI', 'error_code':@retval, 'response':@response)
-    return @retval
+/*
+    Create the external model reference
+*/
+if not exists(select * from sys.external_models where [name] = 'Ada2Embeddings')
+begin
+    create external model Ada2Embeddings
+    with (
+        location = '<OPENAI_URL>/openai/deployments/<OPENAI_EMBEDDING_MODEL_DEPLOYMENT>/embeddings?api-version=2023-05-15',
+        api_format = 'Azure OpenAI',
+        credential = [<OPENAI_URL>],
+        model_type = embeddings,
+        model = 'text-embedding-ada-002'
+    )
 end
+go
 
-declare @re nvarchar(max) = json_query(@response, '$.result.data[0].embedding')
-set @embedding = cast(@re as vector(1536));
-
-return @retval
-GO
+/*
+    Test embedding generation
+*/
+select ai_generate_embeddings(N'Just a test' use model Ada2Embeddings)
+go

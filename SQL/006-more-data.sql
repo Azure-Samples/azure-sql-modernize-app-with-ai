@@ -21,39 +21,22 @@ values
 )
 go
 
--- select * from [dbo].[ecommerce_product_details] where id >= 90000
--- go
-
--- Quick and dirty loop to update embeddings;
-declare @retval int;
-declare @id int, @v vector(1536), @p nvarchar(max), @e json
-while (1=1) 
-begin
-    select @id = null, @v = null, @p = null;
-
-    select top(1) 
-        @id = id,
-        @p = product_name || ' ' || [description] 
-    from 
-        [dbo].[ecommerce_product_details] 
-    where 
-        [embedding] is null;
-
-    if (@id is null) break
-
-    exec @retval = [dbo].[get_embedding] @p, @v output, @e output;
-    if (@retval != 0) begin
-        select @e
-        break
-    end
-
-    update [dbo].[ecommerce_product_details] 
-    set embedding = @v
-    where id = @id
-end
+select * from [dbo].[ecommerce_product_details] 
+where id >= 90000 and embedding is null
 go
 
+-- Generate embeddings
+update
+    [dbo].[ecommerce_product_details] 
+set
+    embedding = ai_generate_embeddings(product_name || ' ' || [description] use model Ada2Embeddings)
+where 
+    id >= 90000
+and 
+    embedding is null
 
-select * from [dbo].[ecommerce_product_details] where id >= 90000
+-- Check 
+select * from [dbo].[ecommerce_product_details] 
+where id >= 90000 and embedding is null
 go
 

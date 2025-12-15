@@ -1,7 +1,10 @@
 # Migrate and Modernize with Azure SQL
 
-> [!NOTE]
-> If you want to explore the new SQL Server 2025, you can use the [`sql-server-2025`](https://github.com/Azure-Samples/azure-sql-modernize-app-with-ai/tree/sql-server-2025) branch of this repository.
+> [!IMPORTANT]
+> This sample has been **updated to use the latest and greatest features** introduced in **SQL Server 2025** and **Azure SQL**, including:
+> - **`CREATE EXTERNAL MODEL`**: Native T-SQL support for deploying and managing AI models directly in the database
+> - **`AI_GENERATE_EMBEDDINGS`**: Built-in T-SQL function for generating vector embeddings with a simplified, frictionless developer experience
+> - Enhanced AI capabilities for semantic search and intelligent applications
 
 This repository contains a sample application and scripts to demonstrate how to modernize your applications *after you have migrated your database to Azure*, using Azure SQL and AI, without the need to change your application code and taking advantage of [Data API builder](https://aka.ms/dab) to create a modern data access layer.
 
@@ -23,12 +26,20 @@ A sample Windows application is provided in the DemoApp folder. Create a `.env` 
 
 You can run the application and search for products using the search box. You'll see that just by updating the stored procedure, as explained in the next steps, you can improve the search experience without having to change the application code.
 
-```
+```bash
 cd DemoApp
 dotnet run
 ```
 
 ## Bring AI to your data
+
+This sample leverages the **latest SQL Server 2025 and Azure SQL AI features** to bring intelligent capabilities directly into your database layer:
+
+- **`CREATE EXTERNAL MODEL`**: Deploy Azure OpenAI models as external models in your database for seamless T-SQL integration
+- **`AI_GENERATE_EMBEDDINGS`**: Generate vector embeddings directly in T-SQL with a simple function call, without having to manually craft JSON payloads or decode results into vectors
+- **Native Vector Support**: Store and query embeddings efficiently using built-in vector data types and similarity functions
+
+These features enable you to build AI-powered applications with a **much simpler and frictionless developer experience**, keeping all AI logic within your database layer.
 
 ### Download and import the public Walmart US Product dataset, enriched with Vector Embeddings
 
@@ -77,9 +88,14 @@ exec dbo.search_products 'xbox', 'Video Games'
 
 ### Modernize the search procedure using vectors and semantic search
 
-The scripts  `./sql/002-get-embedding` and `./sql/003-search-vector.sql` update the previous stored procedure to use [embeddings](https://learn.microsoft.com/en-us/azure/azure-sql/database/ai-artificial-intelligence-intelligent-applications?view=azuresql#embeddings) to search for similar products based on the provide search text. The procedure uses the `text-embedding-ada-002` model to generate embeddings for the search term and the product names in the database, then uses the cosine similarity to find the most similar products.
+The scripts  `./sql/002-get-embedding` and `./sql/003-search-vector.sql` update the previous stored procedure to use [embeddings](https://learn.microsoft.com/en-us/azure/azure-sql/database/ai-artificial-intelligence-intelligent-applications?view=azuresql#embeddings) to search for similar products based on the provide search text. 
 
-Thanks to embeddings, the search is now more powerful and can find products that are similar to the search term, even if the search term is not exactly in the product name.
+**Key SQL Server 2025 Features Used:**
+- **`CREATE EXTERNAL MODEL`**: Register the Azure OpenAI embedding model directly in the database
+- **`AI_GENERATE_EMBEDDINGS`**: Generate embeddings using simple T-SQL function calls - no need to manually craft JSON payloads or decode the results into vectors
+- **Cosine Similarity**: Leverage built-in vector functions to find the most similar products
+
+Thanks to these AI capabilities and embeddings integrated directly into T-SQL, the search is now more powerful and can find products that are similar to the search term, even if the search term is not exactly in the product name. The developer experience is significantly simplified - just call a T-SQL function and get back a ready-to-use vector.
 
 ```sql
 exec dbo.search_products 'games for teenage boy passionate about xbox', 'Video Games'
@@ -88,6 +104,12 @@ exec dbo.search_products 'games for teenage boy passionate about xbox', 'Video G
 ### Modernize the search procedure even more using GPT-4o
 
 The script `./sql/004-search-gpt.sql` updates the previous stored procedure to use GPT-4o to better understand the provided search query so that the retrieved products are more relevant to the user's intent. Also, explanation of why retrieved products are relevant is provided.
+
+**Leveraging SQL Server 2025 Native AI:**
+By using `CREATE EXTERNAL MODEL` to register the GPT-4o model and combining it with `AI_GENERATE_EMBEDDINGS`, all AI operations are called directly from T-SQL, providing:
+- 💡 **Simplified Developer Experience**: No need to manually craft JSON payloads or decode responses - just call T-SQL functions and work with native data types
+- 🔒 **Enhanced Security**: Credentials and API keys are managed centrally within the database
+- 🎯 **Frictionless Integration**: Call AI models with simple T-SQL functions just like any other database function
 
 ```sql
 exec dbo.search_products 'help me find games for teenage boy passionate about xbox video games', 'Video Games'
