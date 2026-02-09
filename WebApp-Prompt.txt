@@ -1,3 +1,3 @@
 create a nice HTML5 javascript page with a nice and modern UI, using jquery and Tailwind CSS and FluentUI to query the API exposed by Data API builder (see the config dab-config.json). A sample query response is available in sample-result.json. A sample API call is available in test.http file
 the UI show allow customers to find producs by typing a natural language query, like "find the best video game to gift to a teenager boy"
-put the html client in the "webapp" folder
+put the html client in the "WebApp" folder
