@@ -51,7 +51,6 @@ cte3 as (
     order by 
         similarity_distance
 )
-
 select @results = ((
     select 
         [id], 
