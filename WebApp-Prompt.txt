@@ -1,3 +1,15 @@
-create a nice HTML5 javascript page with a nice and modern UI, using jquery and Tailwind CSS and FluentUI to query the API exposed by Data API builder (see the config dab-config.json). A sample query response is available in sample-result.json. A sample API call is available in test.http file
-the UI show allow customers to find producs by typing a natural language query, like "find the best video game to gift to a teenager boy"
-put the html client in the "WebApp" folder
+Create a nice HTML5 javascript page with a nice and modern UI, using jquery and Tailwind CSS and FluentUI to query the API exposed by Data API builder (see the config dab-config.json). A sample query response is available in sample-result.json. A sample API call is available in test.http file
+
+The UI must allow customers to find producs by typing a natural language query, like "find the best video game to gift to a teenager boy"
+
+Put the html client in the "WebApp" folder. Keep the Javascript, CSS and HTML in different files. Make sure to use the correct API endpoint as defined in the DAB configuration. Use the sample query response to design the UI and display the results in a user-friendly manner.
+
+The UI should include a search bar for users to input their natural language queries and a results section to display the products returned by the API. Each product should be displayed with its name, description, price, the AI thoughts on why the product was recommended as answer to the user request.
+
+Make sure to handle CORS correctly as the API call will be made from a different origin.    
+
+The HTML app will be served using a simple static file server, so ensure that all resources are correctly linked and accessible.
+
+Create also a readme file in the WebApp folder with instructions on how to set up and run the application, including any necessary dependencies and how to configure the API endpoint.
+
+Use `npx http-server` to run the application locally.

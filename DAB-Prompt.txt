@@ -1,0 +1,5 @@
+I want to expose the stored procedure "dbo.search_products, available in the 004b-search-rag.sql file, as a REST API endpoint using Data API Builder.
+Work in the DAB folder. 
+Make sure CORS is configured correctly as the call to DAB will come from a different origin.
+Use camelCase for the API endpoint, and name it "searchProducts". 
+The connection string for SQL Server where the stored procedure resides is 'Server=dmmssqlsrv9.database.windows.net;Database=vectordb3;Authentication=Active Directory Default'
